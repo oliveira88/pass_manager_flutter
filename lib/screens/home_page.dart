@@ -17,11 +17,9 @@ class HomePage extends StatelessWidget {
           children: const [
             CardManager(
               title: 'Teste',
-              subtitle: 'senha',
             ),
             CardManager(
               title: 'Facebook',
-              subtitle: 'senha',
             )
           ],
         ),
@@ -30,7 +28,9 @@ class HomePage extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddPassword()));
+            context,
+            MaterialPageRoute(builder: (context) => AddPassword()),
+          );
         },
       ),
     );
