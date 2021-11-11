@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pass_manager/screens/add_password.dart';
+import 'package:pass_manager/screens/add_account.dart';
 import 'package:pass_manager/widgets/card_manager.dart';
 
 class HomePage extends StatelessWidget {
