@@ -19,13 +19,33 @@ class HomePage extends StatelessWidget {
           ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListView.builder(
-              itemCount: accounts.accounts.length,
-              itemBuilder: (_, index) {
-                final account = accounts.accounts[index];
-                return CardManager(title: account.name);
-              },
-            ),
+            child: accounts.accounts.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.people,
+                          color: Colors.black54,
+                          size: 80.0,
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          'Nenhuma conta adicionada!',
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.black54),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: accounts.accounts.length,
+                    itemBuilder: (_, index) {
+                      final account = accounts.accounts[index];
+                      return CardManager(title: account.name);
+                    },
+                  ),
           ),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
