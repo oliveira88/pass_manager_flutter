@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pass_manager/model/account_list.dart';
+import 'package:provider/provider.dart';
 
 class AddPassword extends StatefulWidget {
   const AddPassword({Key? key}) : super(key: key);
@@ -21,8 +23,17 @@ class _AddPasswordState extends State<AddPassword> {
     });
   }
 
+  void _addAccount(BuildContext context, AccountList accounts) {
+    var name = _nameController.text;
+    var password = _passwordController.text;
+    accounts.addAccount(name, password);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final accounts = Provider.of<AccountList>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Adicionar conta'),
@@ -48,16 +59,15 @@ class _AddPasswordState extends State<AddPassword> {
                   onPressed: _togglePassVisibility,
                 ),
               ),
+              onSubmitted: (_) {
+                _addAccount(context, accounts);
+              },
               obscureText: _passwordVisible,
             ),
             const SizedBox(height: 50.0),
             ElevatedButton(
               onPressed: () {
-                var account = {
-                  "name": _nameController.text,
-                  "password": _passwordController.text
-                };
-                print(account);
+                _addAccount(context, accounts);
               },
               child: Text(
                 'Adicionar',
