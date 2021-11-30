@@ -8,7 +8,7 @@ class AddPassword extends StatefulWidget {
 }
 
 class _AddPasswordState extends State<AddPassword> {
-  final _accountController = TextEditingController();
+  final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   bool _passwordVisible = true;
@@ -34,7 +34,7 @@ class _AddPasswordState extends State<AddPassword> {
             TextField(
               autofocus: true,
               style: TextStyle(fontSize: 20.0),
-              controller: _accountController,
+              controller: _nameController,
               decoration: InputDecoration(labelText: 'Conta'),
             ),
             const SizedBox(height: 24.0),
@@ -49,6 +49,20 @@ class _AddPasswordState extends State<AddPassword> {
                 ),
               ),
               obscureText: _passwordVisible,
+            ),
+            const SizedBox(height: 50.0),
+            ElevatedButton(
+              onPressed: () {
+                var account = {
+                  "name": _nameController.text,
+                  "password": _passwordController.text
+                };
+                print(account);
+              },
+              child: Text(
+                'Adicionar',
+                style: TextStyle(fontSize: 16),
+              ),
             ),
           ],
         ),
