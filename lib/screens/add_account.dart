@@ -33,48 +33,70 @@ class _AddPasswordState extends State<AddPassword> {
   @override
   Widget build(BuildContext context) {
     final accounts = Provider.of<AccountList>(context);
+    final _formKey = GlobalKey<FormState>();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Adicionar conta'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            TextField(
-              autofocus: true,
-              style: TextStyle(fontSize: 20.0),
-              controller: _nameController,
-              decoration: InputDecoration(labelText: 'Conta'),
-            ),
-            const SizedBox(height: 24.0),
-            TextField(
-              style: TextStyle(fontSize: 20.0),
-              controller: _passwordController,
-              decoration: InputDecoration(
-                labelText: 'Senha',
-                suffixIcon: IconButton(
-                  icon: Icon(_passIcon),
-                  onPressed: _togglePassVisibility,
+    return Form(
+      key: _formKey,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Adicionar conta'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: [
+              TextFormField(
+                autofocus: true,
+                style: TextStyle(fontSize: 20.0),
+                controller: _nameController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Entre com algum nome';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(labelText: 'Conta'),
+                textInputAction: TextInputAction.next,
+              ),
+              const SizedBox(height: 24.0),
+              TextFormField(
+                style: TextStyle(fontSize: 20.0),
+                controller: _passwordController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Entre com alguma senha';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  labelText: 'Senha',
+                  suffixIcon: IconButton(
+                    icon: Icon(_passIcon),
+                    onPressed: _togglePassVisibility,
+                  ),
+                ),
+                onFieldSubmitted: (_) {
+                  if (_formKey.currentState!.validate()) {
+                    _addAccount(context, accounts);
+                  }
+                },
+                obscureText: _passwordVisible,
+                textInputAction: TextInputAction.done,
+              ),
+              const SizedBox(height: 50.0),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _addAccount(context, accounts);
+                  }
+                },
+                child: Text(
+                  'Adicionar',
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
-              onSubmitted: (_) {
-                _addAccount(context, accounts);
-              },
-              obscureText: _passwordVisible,
-            ),
-            const SizedBox(height: 50.0),
-            ElevatedButton(
-              onPressed: () {
-                _addAccount(context, accounts);
-              },
-              child: Text(
-                'Adicionar',
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
