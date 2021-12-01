@@ -9,8 +9,8 @@ abstract class _AccountListBase with Store {
   ObservableList<Account> accounts = ObservableList<Account>();
 
   @action
-  void addAccount(name, password) {
-    final account = Account(name, password);
+  void addAccount(String email, String name, String password) {
+    final account = Account(email, name, password);
     accounts.add(account);
   }
 

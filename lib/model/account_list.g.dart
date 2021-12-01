@@ -28,11 +28,11 @@ mixin _$AccountList on _AccountListBase, Store {
       ActionController(name: '_AccountListBase');
 
   @override
-  void addAccount(dynamic name, dynamic password) {
+  void addAccount(String email, String name, String password) {
     final _$actionInfo = _$_AccountListBaseActionController.startAction(
         name: '_AccountListBase.addAccount');
     try {
-      return super.addAccount(name, password);
+      return super.addAccount(email, name, password);
     } finally {
       _$_AccountListBaseActionController.endAction(_$actionInfo);
     }

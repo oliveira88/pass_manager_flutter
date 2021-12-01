@@ -10,6 +10,7 @@ class AddPassword extends StatefulWidget {
 }
 
 class _AddPasswordState extends State<AddPassword> {
+  final _emailController = TextEditingController();
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -24,10 +25,18 @@ class _AddPasswordState extends State<AddPassword> {
   }
 
   void _addAccount(BuildContext context, AccountList accounts) {
-    var name = _nameController.text;
-    var password = _passwordController.text;
-    accounts.addAccount(name, password);
+    String email = _emailController.text;
+    String name = _nameController.text;
+    String password = _passwordController.text;
+    accounts.addAccount(email, name, password);
     Navigator.pop(context);
+  }
+
+  String? _validateField(String? value, String text) {
+    if (value == null || value.isEmpty) {
+      return '$text';
+    }
+    return null;
   }
 
   @override
@@ -48,26 +57,26 @@ class _AddPasswordState extends State<AddPassword> {
               TextFormField(
                 autofocus: true,
                 style: TextStyle(fontSize: 20.0),
+                controller: _emailController,
+                validator: (value) =>
+                    _validateField(value, 'Entre com o email'),
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(labelText: 'Email'),
+                textInputAction: TextInputAction.next,
+              ),
+              TextFormField(
+                style: TextStyle(fontSize: 20.0),
                 controller: _nameController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Entre com algum nome';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(labelText: 'Conta'),
+                validator: (value) => _validateField(value, 'Entre com o nome'),
+                decoration: InputDecoration(labelText: 'Nome'),
                 textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 24.0),
               TextFormField(
                 style: TextStyle(fontSize: 20.0),
                 controller: _passwordController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Entre com alguma senha';
-                  }
-                  return null;
-                },
+                validator: (value) =>
+                    _validateField(value, 'Entre com a senha'),
                 decoration: InputDecoration(
                   labelText: 'Senha',
                   suffixIcon: IconButton(
