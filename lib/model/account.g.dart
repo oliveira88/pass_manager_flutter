@@ -24,6 +24,21 @@ mixin _$Account on _AccountBase, Store {
     });
   }
 
+  final _$emailAtom = Atom(name: '_AccountBase.email');
+
+  @override
+  String get email {
+    _$emailAtom.reportRead();
+    return super.email;
+  }
+
+  @override
+  set email(String value) {
+    _$emailAtom.reportWrite(value, super.email, () {
+      super.email = value;
+    });
+  }
+
   final _$passwordAtom = Atom(name: '_AccountBase.password');
 
   @override
@@ -43,6 +58,7 @@ mixin _$Account on _AccountBase, Store {
   String toString() {
     return '''
 name: ${name},
+email: ${email},
 password: ${password}
     ''';
   }

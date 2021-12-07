@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                     itemCount: accounts.accounts.length,
                     itemBuilder: (_, index) {
                       final account = accounts.accounts[index];
-                      return CardManager(title: account.name);
+                      return CardManager(account: account);
                     },
                   ),
           ),
