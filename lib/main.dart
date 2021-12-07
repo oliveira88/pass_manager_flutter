@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pass_manager/model/account_list.dart';
-import 'package:pass_manager/screens/home_page.dart';
+import 'package:pass_manager/views/home/home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {

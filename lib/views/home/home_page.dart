@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pass_manager/model/account_list.dart';
-import 'package:pass_manager/screens/add_account.dart';
-import 'package:pass_manager/widgets/card_manager.dart';
+import 'package:pass_manager/views/add_account/add_account_page.dart';
+import 'package:pass_manager/views/card_manager/card_manager_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
