@@ -1,20 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:pass_manager/model/account.dart';
-import 'package:pass_manager/model/account_list.dart';
-import 'package:provider/provider.dart';
+import 'package:pass_manager/commands/account/remove_account_command.dart';
+import 'package:pass_manager/dto/account_dto.dart';
 
 class CardManager extends StatelessWidget {
   const CardManager({Key? key, required this.account}) : super(key: key);
-  final Account account;
+  final AccountDto account;
   @override
   Widget build(BuildContext context) {
-    final accounts = Provider.of<AccountList>(context);
     return Card(
       child: InkWell(
         onTap: () {
-          print(account.password);
+          debugPrint(account.password);
         },
         onLongPress: () {
           showMenu(
@@ -28,7 +24,7 @@ class CardManager extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 onTap: () {
-                  print('EDITAR');
+                  debugPrint('EDITAR');
                 },
               ),
               PopupMenuItem(
@@ -39,7 +35,7 @@ class CardManager extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 onTap: () {
-                  accounts.removeAccount(account);
+                  RemoveAccountCommand().execute(account);
                 },
               ),
             ],
