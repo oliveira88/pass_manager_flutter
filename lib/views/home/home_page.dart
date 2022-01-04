@@ -49,17 +49,21 @@ class AccountsList extends StatelessWidget {
     return FutureBuilder<List<AccountDto>>(
       future: GetAccountsCommand().execute(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        return ListView.builder(
-          itemCount: snapshot.data!.length,
-          itemBuilder: (_, index) {
-            final account = snapshot.data![index];
-            return CardManager(account: account);
-          },
+        return Stack(
+          children: [
+            ListView.builder(
+              itemCount: snapshot.data?.length ?? 0,
+              itemBuilder: (_, index) {
+                final account = snapshot.data?[index];
+                return account != null
+                    ? CardManager(account: account)
+                    : Container();
+              },
+            ),
+            snapshot.connectionState == ConnectionState.waiting
+                ? Center(child: CircularProgressIndicator())
+                : Container(),
+          ],
         );
       },
     );
