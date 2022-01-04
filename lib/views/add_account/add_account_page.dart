@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pass_manager/model/account_list.dart';
-import 'package:provider/provider.dart';
+import 'package:pass_manager/commands/account/add_account_command.dart';
+import 'package:pass_manager/dto/account_dto.dart';
 
 class AddPassword extends StatefulWidget {
   const AddPassword({Key? key}) : super(key: key);
@@ -24,26 +24,28 @@ class _AddPasswordState extends State<AddPassword> {
     });
   }
 
-  void _addAccount(BuildContext context, AccountList accounts) {
+  void _addAccount() async {
     String email = _emailController.text;
     String name = _nameController.text;
     String password = _passwordController.text;
-    accounts.addAccount(email, name, password);
-    Navigator.pop(context);
+    var account = AccountDto()
+      ..id = UniqueKey().toString()
+      ..email = email
+      ..name = name
+      ..password = password;
+    await AddAccountCommand().execute(account);
   }
 
   String? _validateField(String? value, String text) {
     if (value == null || value.isEmpty) {
-      return '$text';
+      return text;
     }
     return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    final accounts = Provider.of<AccountList>(context);
     final _formKey = GlobalKey<FormState>();
-
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -86,7 +88,8 @@ class _AddPasswordState extends State<AddPassword> {
                 ),
                 onFieldSubmitted: (_) {
                   if (_formKey.currentState!.validate()) {
-                    _addAccount(context, accounts);
+                    _addAccount();
+                    Navigator.pop(context);
                   }
                 },
                 obscureText: _passwordVisible,
@@ -96,7 +99,8 @@ class _AddPasswordState extends State<AddPassword> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    _addAccount(context, accounts);
+                    _addAccount();
+                    Navigator.pop(context);
                   }
                 },
                 child: Text(
