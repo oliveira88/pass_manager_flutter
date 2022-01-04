@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pass_manager/model/account_list.dart';
+import 'package:get_it/get_it.dart';
+import 'package:pass_manager/model/app_model.dart';
 import 'package:pass_manager/views/home/home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  GetIt.I.registerLazySingleton<AppModel>(() => AppModel());
   runApp(const PassManagerApp());
 }
 
@@ -11,11 +13,15 @@ class PassManagerApp extends StatelessWidget {
   const PassManagerApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Provider<AccountList>(
-      create: (_) => AccountList(),
+    final appModel = GetIt.I.get<AppModel>();
+    return ChangeNotifierProvider.value(
+      value: appModel,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        initialRoute: '/',
+        routes: {
+          '/': (c) => const HomePage(),
+        },
       ),
     );
   }
