@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pass_manager/initial_configuration.dart';
 import 'package:pass_manager/model/app_model.dart';
+import 'package:pass_manager/views/add_account/add_account_page.dart';
 import 'package:pass_manager/views/home/home_page.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,7 @@ class PassManagerApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (c) => const HomePage(),
+          '/add-account': (c) => const AddAccountPage()
         },
       ),
     );
