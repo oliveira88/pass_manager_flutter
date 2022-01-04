@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pass_manager/commands/account/add_account_command.dart';
 import 'package:pass_manager/dto/account_dto.dart';
 
-class AddPassword extends StatefulWidget {
-  const AddPassword({Key? key}) : super(key: key);
+class AddAccountPage extends StatefulWidget {
+  const AddAccountPage({Key? key}) : super(key: key);
 
   @override
-  State<AddPassword> createState() => _AddPasswordState();
+  State<AddAccountPage> createState() => _AddAccountPageState();
 }
 
-class _AddPasswordState extends State<AddPassword> {
+class _AddAccountPageState extends State<AddAccountPage> {
   final _emailController = TextEditingController();
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();

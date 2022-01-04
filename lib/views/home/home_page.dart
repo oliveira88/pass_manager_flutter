@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pass_manager/commands/account/get_accounts_command.dart';
 import 'package:pass_manager/dto/account_dto.dart';
-import 'package:pass_manager/views/add_account/add_account_page.dart';
 import 'package:pass_manager/views/card_manager/card_manager_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -29,10 +28,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddPassword()),
-          );
+          Navigator.pushNamed(context, '/add-account');
         },
       ),
     );
